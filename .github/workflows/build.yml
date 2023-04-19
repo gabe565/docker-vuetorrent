@@ -21,7 +21,7 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: |
-            ghcr.io/${{ github.repository }}
+            ghcr.io/${{ github.repository_owner }}/vuetorrent
           tags: |
             type=raw,priority=1000,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
             type=semver,pattern={{version}},value=${{ env.VUETORRENT_REF }},enable=${{ github.ref == 'refs/heads/main' }}
