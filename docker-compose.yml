@@ -1,0 +1,8 @@
+version: "3.9"
+
+services:
+  vuetorrent:
+    image: "ghcr.io/gabe565/vuetorrent"
+    build: "."
+    ports:
+      - "80:80"
