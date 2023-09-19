@@ -16,4 +16,4 @@ The VueTorrent version is automatically updated by Renovate bot, so new VueTorre
 
 ### Docker
 
-See the included [`docker-compose.yml`](docker-compose.yml) for volume bind info. This would need to be run on a cron.
+See the included [`docker-compose.yml`](docker-compose.yml).
