@@ -1,7 +1,7 @@
 # VueTorrent Container Image
 
 <!--renovate repo=WDaan/VueTorrent -->
-[![Version](https://img.shields.io/badge/Version-v1.8.0-informational?style=flat)](https://github.com/gabe565/docker-vuetorrent/pkgs/container/vuetorrent)
+[![Version](https://img.shields.io/badge/Version-v2.0.0-informational?style=flat)](https://github.com/gabe565/docker-vuetorrent/pkgs/container/vuetorrent)
 [![Build](https://github.com/gabe565/docker-vuetorrent/actions/workflows/build.yml/badge.svg)](https://github.com/gabe565/docker-vuetorrent/actions/workflows/build.yml)
 
 This repo builds Docker images for [WDaan/VueTorrent](https://github.com/WDaan/VueTorrent) which can be hosted separately from qBittorrent.
