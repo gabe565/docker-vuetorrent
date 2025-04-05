@@ -1,3 +1,5 @@
+ARG VARIANT=default
+
 FROM --platform=$BUILDPLATFORM alpine:3.21 AS src
 WORKDIR /app
 
@@ -11,6 +13,8 @@ RUN <<EOT
   rm vuetorrent.zip
 EOT
 
+FROM nginx:stable-alpine AS variant-default
+FROM nginxinc/nginx-unprivileged:stable-alpine AS variant-nonroot
 
-FROM nginx:stable-alpine
+FROM variant-$VARIANT
 COPY --from=src /app/vuetorrent/public /usr/share/nginx/html

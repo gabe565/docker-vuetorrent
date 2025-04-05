@@ -8,11 +8,18 @@ env:
 
 jobs:
   build:
-    name: Build Image
+    name: Build Image (${{ matrix.variant }})
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
+    strategy:
+      matrix:
+        include:
+          - variant: default
+            suffix: ''
+          - variant: nonroot
+            suffix: '-nonroot'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -20,13 +27,14 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: |
-            ghcr.io/${{ github.repository_owner }}/vuetorrent
+          images: ghcr.io/${{ github.repository_owner }}/vuetorrent
+          flavor: suffix=${{ matrix.suffix }}
           tags: |
-            type=raw,priority=1000,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
-            type=semver,pattern={{version}},value=${{ env.VUETORRENT_REF }},enable=${{ github.ref == 'refs/heads/main' }}
-            type=semver,pattern={{major}}.{{minor}},value=${{ env.VUETORRENT_REF }},enable=${{ github.ref == 'refs/heads/main' }}
-            type=semver,pattern={{major}},value=${{ env.VUETORRENT_REF }},enable=${{ github.ref == 'refs/heads/main' }}
+            type=raw,priority=1000,value=latest,enable=${{ matrix.variant == 'default' }}
+            type=raw,priority=1000,value=${{ matrix.variant }},suffix=,enable=${{ matrix.variant != 'default' }}
+            type=semver,pattern={{version}},value=${{ env.VUETORRENT_REF }}
+            type=semver,pattern={{major}}.{{minor}},value=${{ env.VUETORRENT_REF }}
+            type=semver,pattern={{major}},value=${{ env.VUETORRENT_REF }}
           labels: |
             org.opencontainers.image.title=VueTorrent
             maintainer=gabe565
@@ -50,12 +58,13 @@ jobs:
         with:
           context: .
           pull: true
-          push: ${{ github.secret_source == 'Actions' && steps.meta.outputs.tags != '' }}
+          push: ${{ github.ref_name == 'main' }}
           platforms: linux/amd64,linux/arm/v7,linux/arm64/v8
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
             VUETORRENT_REPO=${{ env.VUETORRENT_REPO }}
             VUETORRENT_REF=${{ env.VUETORRENT_REF }}
+            VARIANT=${{ matrix.variant }}
           cache-from: type=gha
           cache-to: type=gha,mode=max

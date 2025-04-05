@@ -12,6 +12,13 @@ The VueTorrent version is automatically updated by Renovate bot, so new VueTorre
 
 - [ghcr.io/gabe565/vuetorrent](https://github.com/gabe565/docker-vuetorrent/pkgs/container/vuetorrent)
 
+## Variants
+### `<version>`
+Default image based on [`nginx`](https://hub.docker.com/_/nginx). Nginx will run as root and listen on port `80`.
+
+### `<version>-nonroot`
+Unprivileged image based on [`nginxinc/nginx-unprivileged`](https://hub.docker.com/r/nginxinc/nginx-unprivileged). Nginx will run as UID `101` and listen on port `8080`.
+
 ## Deployment
 
 ### Docker
