@@ -1,6 +1,6 @@
 ARG VARIANT=default
 
-FROM --platform=$BUILDPLATFORM alpine:3.21 AS src
+FROM --platform=$BUILDPLATFORM alpine:3.23 AS src
 WORKDIR /app
 
 ARG VUETORRENT_REPO=WDaan/VueTorrent
